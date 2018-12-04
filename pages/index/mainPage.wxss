@@ -1,0 +1,32 @@
+/* pages/index/mainPage.wxss */
+/* 提示框 */
+.promotion {
+  align-content: top;
+  text-align: center;
+  margin-top: 1px;
+}
+
+/* 表单区 */
+.form-area{
+  margin-top: 10px;
+  height: 500px;
+  width: 95%;
+  /* background-color: rgba(202, 211, 212, 0.667) */
+}
+
+/* 表单列样式 */
+.info-input-area{
+  border: dotted 1px orange;
+  flex-direction: row;
+}
+
+.form-key {
+  font-size: 15px;
+}
+
+input{
+  align-self: center;
+  font-size: 15px;
+  width: 90%;
+  background: rgba(150, 194, 167, 0.295)
+}
