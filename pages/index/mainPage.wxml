@@ -1,0 +1,38 @@
+<!--index.wxml-->
+<view class="container">
+  <!-- <view class="userinfo">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <block wx:else>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+    </block>
+  </view> -->
+  <view class='promotion'>
+    <text>欢迎使用二位码生成！</text>
+  </view>
+
+<form class='form-area' bindsubmit='onSubmit'>
+  <view>
+    <text class='form-key'>请填写二维码信息</text>
+    <view class='info-input-area'>
+        <text class='form-key'>省: </text><input name='provice'></input>
+        <text class='form-key'>地市: </text><input name='city'></input>
+        <text class='form-key'>区县: </text><input name='ditrict'></input>
+        <text class='form-key'>类型: </text>
+        <picker mode="region" name='region'>
+          <view class="picker">
+              当前选择: {{region[0]}}，{{region[1]}}，{{region[2]}}
+          </view>
+        </picker>
+        <text class='form-key'>发展渠道名称: </text><input name='channelName'></input>
+        <text class='form-key'>发展渠道ID: </text><input name='channelId'></input>
+        <text class='form-key'>产品ID: </text><input name='productId'></input>
+    </view>
+  </view>
+    <view class="usermotto">
+    <button form-type="submit" bindtap='onSubmit'>开始生成</button>
+  </view>
+</form>
+
+
+</view>

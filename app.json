@@ -1,12 +1,12 @@
 {
   "pages":[
-    "pages/index/index",
+    "pages/index/mainPage",
     "pages/logs/logs"
   ],
   "window":{
-    "backgroundTextStyle":"dsad",
+    "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"Blue"
+    "navigationBarTitleText": "二维码生成小程序",
+    "navigationBarTextStyle":"Black"
   }
 }
