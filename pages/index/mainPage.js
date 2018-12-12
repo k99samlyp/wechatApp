@@ -69,7 +69,7 @@ Page({
     console.info(e.detail.value)
 
     wx.request({
-      url: 'https://112.33.250.37:9800/eduSynHdMthspQuery/getData?province=898&batchnum=20180723', //仅为示例，并非真实的接口地址
+      url: 'https://paydata.andedu.net:9800/eduSynHdMthspQuery/getData?province=898&batchnum=20180723', //仅为示例，并非真实的接口地址
       data: {
         x: '',
         y: ''
