@@ -5,7 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    //province: "",
+    captchaImage: "",
+    index: 0,
+    array: ['工号', '集团']
   },
 
   /**
@@ -66,21 +69,49 @@ Page({
 
   // 表单提交
   onSubmit: function(e){
-    console.info(e.detail.value)
-
+    var that = this;
+    console.info(e.detail.value);
     wx.request({
-      url: 'https://paydata.andedu.net:9800/eduSynHdMthspQuery/getData?province=898&batchnum=20180723', //仅为示例，并非真实的接口地址
+      url: 'https://127.0.0.1:9800/weapp/qrcode', //仅为示例，并非真实的接口地址
+      //url: 'https://paydata.andedu.net:9800/weapp/qrcode', //仅为示例，并非真实的接口地址
+
       data: {
-        x: '',
-        y: ''
+         paramsBody: e.detail.value
       },
-      method: 'GET',
+      method: 'POST',
       header: {
         'content-type': 'application/json' // 默认值
       },
       success(res) {
-        console.log(res.data)
+        //console.log(res.data);
+        //var array = wx.base64ToArrayBuffer(res.data)
+        //var base64 = wx.arrayBufferToBase64(array)
+        //that.setData({ captchaImage: '../../test.jpg'});
+
+        that.setData({ captchaImage: 'data:img/jpg;base64,' + res.data});
+
+        if (res.statusCode == 200){
+          wx.showToast({
+            title: '生成成功',
+            icon: 'success',
+            duration: 2000
+          })
+        }
+        else{
+          wx.showToast({
+            title: '生成失败，请检查是否存在未填项',
+            icon: 'none',
+            duration: 2000
+          })
+        }
       }
     })
-  }
+  },
+
+  bindTypeChange: function (e) {
+    console.log('类型改变，携带值为', e.detail.value)
+    this.setData({
+      index: e.detail.value
+    })
+  },
 })
