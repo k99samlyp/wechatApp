@@ -72,8 +72,8 @@ Page({
     var that = this;
     console.info(e.detail.value);
     wx.request({
-      url: 'https://127.0.0.1:9800/weapp/qrcode', //仅为示例，并非真实的接口地址
-      //url: 'https://paydata.andedu.net:9800/weapp/qrcode', //仅为示例，并非真实的接口地址
+      //url: 'https://127.0.0.1:9800/weapp/qrcode', //仅为示例，并非真实的接口地址
+      url: 'https://paydata.andedu.net:9800/weapp/qrcode', //仅为示例，并非真实的接口地址
 
       data: {
          paramsBody: e.detail.value
@@ -99,7 +99,7 @@ Page({
         }
         else{
           wx.showToast({
-            title: '生成失败，请检查是否存在未填项',
+            title: res.data,
             icon: 'none',
             duration: 2000
           })

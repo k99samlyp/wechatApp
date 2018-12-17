@@ -15,7 +15,7 @@
   <view>
     <text class='form-key'>请填写二维码信息</text>
     <view class='info-input-area'>
-        <text class='form-key'>省: </text><input name='province'></input>
+        <text class='form-key'>省(必填): </text><input name='province'></input>
         <text class='form-key'>地市: </text><input name='city'></input>
         <text class='form-key'>区县: </text><input name='district'></input>
         <picker bindchange='bindTypeChange' name='type' value='{{array[index]}}' range="{{array}}">
@@ -23,9 +23,9 @@
             <text class='form-key'>类型: {{array[index]}}</text>
           </view>
         </picker>
-        <text class='form-key'>发展渠道名称: </text><input name='channelName'></input>
-        <text class='form-key'>发展渠道ID: </text><input name='channelId'></input>
-        <text class='form-key'>产品ID: (多个产品请以-隔开) </text><input name='productId'></input>
+        <text class='form-key'>发展渠道名称(必填): </text><input name='channelName'></input>
+        <text class='form-key'>发展渠道ID(必填): </text><input name='channelId'></input>
+        <text class='form-key'>产品ID: (必填，多个产品请以-隔开) </text><input name='productId'></input>
     </view>
   </view>
     <view class="usermotto">
