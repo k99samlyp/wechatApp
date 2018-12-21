@@ -1,32 +1,42 @@
+@import "../libs/weui.wxss";
+
 /* pages/index/mainPage.wxss */
 /* 提示框 */
 .promotion {
   align-content: top;
   text-align: center;
-  margin-top: 1px;
+  margin-top: -5px;
 }
 
 /* 表单区 */
 .form-area{
   margin-top: 10px;
-  height: 500px;
-  width: 95%;
-  /* background-color: rgba(202, 211, 212, 0.667) */
+  height: 800px;
+  width: 96%;
+  background-color: rgba(227, 229, 230, 0.384)
 }
 
 /* 表单列样式 */
 .info-input-area{
   border: dotted 1px orange;
   flex-direction: row;
+  padding: 12px;
 }
 
 .form-key {
-  font-size: 15px;
+  font-size: 16px;
 }
 
-input{
+/* input{
+  align-content: center;
   align-self: center;
-  font-size: 15px;
+  font-size: 18px;
   width: 90%;
   background: rgba(150, 194, 167, 0.295)
+} */
+
+picker{
+  padding: 10px
 }
+
+button {margin: 10px;}

@@ -8,7 +8,10 @@
     </block>
   </view> -->
   <view class='promotion'>
-    <text>欢迎使用二位码生成！</text>
+    <text>欢迎使用</text>
+  </view>
+  <view class='promotion'>
+    <text>和教育互联网客户推广二位码生成器</text>
   </view>
 
 <form class='form-area' bindsubmit='onSubmit'>
@@ -18,29 +21,71 @@
         <!-- <text class='form-key'>省(必填): </text><input name='province'></input> -->
         <picker bindchange='provinceChange' range-key='name' value='{{provinceArray[province_index].id}}' range="{{provinceArray}}">
           <view class="picker">
-            <text class='form-key'>省(必填):{{provinceArray[province_index].name}}</text>
+            <text class='form-key'>省(必填)：{{provinceArray[province_index].name}}</text>
             <input style='display:none' name='province' value='{{province_id}}'></input>
 
           </view>
         </picker>
-        <text class='form-key'>地市: </text><input name='city'></input>
-        <text class='form-key'>区县: </text><input name='district'></input>
+
+        <view class="page-section">
+          <view class="weui-cells__title">地市：</view>
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+                <input name='city' class="weui-input" placeholder='请填写地市编码' placeholder-style='font-size:14px'></input>
+            </view>
+          </view>
+        </view>
+
+        <view class="page-section">
+          <view class="weui-cells__title">区县： </view>
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+              <input name='district' class="weui-input" placeholder='请填写区县编码' placeholder-style='font-size:14px'></input>            
+            </view>
+          </view>
+        </view>
+
         <picker bindchange='bindTypeChange' range-key='name' value='{{typeArray[type_index].id}}' range="{{typeArray}}">
           <view class="picker">
-            <text class='form-key'>类型: {{typeArray[type_index].name}}</text>
+            <text class='form-key'>类型： {{typeArray[type_index].name}}</text>
             <input style='display:none' name='type' value='{{type_id}}'></input>
 
           </view>
         </picker>
-        <text class='form-key'>发展渠道名称(必填): </text><input name='channelName'></input>
-        <text class='form-key'>发展渠道ID(必填): </text><input name='channelId'></input>
-        <text class='form-key'>产品ID: (必填，多个产品请以-隔开) </text><input name='productId'></input>
+
+        <view class="page-section">
+          <view class="weui-cells__title">发展渠道名称(必填)：</view>
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+               <input name='channelName' class="weui-input"></input>            
+            </view>
+          </view>
+        </view>
+
+        <view class="page-section">
+          <view class="weui-cells__title">发展渠道ID(必填)：</view>
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+               <input name='channelId' type='number' class="weui-input"></input>           
+            </view>
+          </view>
+        </view>
+
+        <view class="page-section">
+          <view class="weui-cells__title">产品ID：(必填)：</view>
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+               <input name='productId' placeholder='多个产品请以-隔开' placeholder-style='font-size:14px' class="weui-input"></input>          
+            </view>
+          </view>
+        </view>
+
     </view>
   </view>
     <view class="usermotto">
-    <button form-type="submit">开始生成</button>
-    <button form-type="reset" bindtap='resetForm'>重置</button>
-    <button form-type="reset" bindtap='scanQrCode'>订购二维码解析</button>
+    <button form-type="submit" type="primary" loading="{{gen_loading}}">开始生成</button>
+    <button form-type="reset" type="warn" bindtap='resetForm'>重置</button>
+    <button form-type="reset" bindtap='scanQrCode' loading="{{read_loading}}">二维码读取</button>
   </view>
 </form>
     <image src='{{captchaImage}}'/>

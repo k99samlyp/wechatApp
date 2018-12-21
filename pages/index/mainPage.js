@@ -187,7 +187,11 @@ Page({
       }
     ],
     province_id: "",
-    province_index: 0
+    province_index: 0,
+
+    // 按钮状态
+    gen_loading: false,
+    read_loading: false
   },
 
   /**
@@ -255,6 +259,10 @@ Page({
   onSubmit: function(e){
     var that = this;
     console.info(e.detail.value);
+    that.setData({
+      gen_loading: true
+    }),
+
     wx.request({
       url: that.data.domain + '/weapp/qrcode', //仅为示例，并非真实的接口地址
       data: {
@@ -265,6 +273,9 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success(res) {
+        that.setData({
+          gen_loading: false
+        }),
         //console.log(res.data);
         //var array = wx.base64ToArrayBuffer(res.data)
         //var base64 = wx.arrayBufferToBase64(array)
@@ -316,6 +327,9 @@ Page({
   },
   scanQrCode: function(e) {
     var that = this;
+    that.setData({
+      read_loading: true
+    }),
 
     wx.scanCode({
       scanType: "qrCode",
@@ -331,6 +345,11 @@ Page({
             'content-type': 'text/plain' // 默认值
           },
           success(res) {
+
+            that.setData({
+              read_loading: false
+            })
+
             if (res.statusCode == 200) {
               wx.showModal({
                 title: '您的二维码信息',
