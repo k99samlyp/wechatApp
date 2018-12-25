@@ -322,9 +322,11 @@ Page({
       province_index: 0,
       type_index: 0,
       province_id: this.data.provinceArray[0].key,
-      type_id: this.data.typeArray[0].key
+      type_id: this.data.typeArray[0].key,
+      captchaImage: null
     })
   },
+
   scanQrCode: function(e) {
     var that = this;
     that.setData({
@@ -355,14 +357,7 @@ Page({
                 title: '您的二维码信息',
                 content: '省：' + res.data.province + '\r\n地市：' + res.data.city + '\r\n区县：' + res.data.district + '\r\n类型：' + res.data.type + '\r\n发展渠道名称：' + res.data.channelName + '\r\n发展渠道ID：' + res.data.channelId + '\r\n产品ID：' + res.data.productId,
                 showCancel:false,
-                confirmText:'我知道了',
-                success(res) {
-                  // if (res.confirm) {
-                  //   console.log('用户点击确定')
-                  // } else if (res.cancel) {
-                  //   console.log('用户点击取消')
-                  // }
-                }
+                confirmText:'我知道了'
               })
             }
             else {
@@ -370,14 +365,7 @@ Page({
                 title: '有错误！',
                 content: res.data.errorMsg,
                 showCancel: false,
-                confirmText: '我知道了',
-                success(res) {
-                  // if (res.confirm) {
-                  //   console.log('用户点击确定')
-                  // } else if (res.cancel) {
-                  //   console.log('用户点击取消')
-                  // }
-                }
+                confirmText: '我知道了'
               })
             }
           }
@@ -385,6 +373,11 @@ Page({
 
       },
       fail(res) {
+
+        that.setData({
+          read_loading: false
+        })
+
         wx.showToast({
           title: "解析二维码失败",
           icon: 'none',
@@ -392,13 +385,5 @@ Page({
         })
       }
     })
-
-
-    // this.setData({
-    //   province_index: 0,
-    //   type_index: 0,
-    //   province_id: this.data.provinceArray[0].key,
-    //   type_id: this.data.typeArray[0].key
-    // })
   }
 })

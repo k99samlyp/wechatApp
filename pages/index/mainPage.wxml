@@ -85,7 +85,7 @@
     <view class="usermotto">
     <button form-type="submit" type="primary" loading="{{gen_loading}}">开始生成</button>
     <button form-type="reset" type="warn" bindtap='resetForm'>重置</button>
-    <button form-type="reset" bindtap='scanQrCode' loading="{{read_loading}}">二维码读取</button>
+    <button bindtap='scanQrCode' loading="{{read_loading}}">二维码读取</button>
   </view>
 </form>
     <image src='{{captchaImage}}'/>
