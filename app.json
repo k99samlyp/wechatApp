@@ -5,8 +5,9 @@
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "二维码生成小程序",
-    "navigationBarTextStyle":"Black"
+    "navigationBarBackgroundColor": "#0066CC",
+    "navigationBarTitleText": "和教育推广二维码生成器",
+    "navigationBarTextStyle":"white",
+    "backgroundColor": "#afafaf"
   }
 }

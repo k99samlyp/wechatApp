@@ -5,7 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    // domain: "https://127.0.0.1:9800",
+    //  domain: "https://127.0.0.1:9800",
     domain: "https://paydata.andedu.net:9800",
 
     //province: "",
@@ -186,6 +186,7 @@ Page({
         name: '政企分公司'
       }
     ],
+    // provinceArray: "",
     province_id: "",
     province_index: 0,
 
@@ -194,11 +195,40 @@ Page({
     read_loading: false
   },
 
+  checkParams: function (params) {
+    return params.type == "" ? "类型未选择" : (
+    params.province == "" ? "省份未选择" : (params.channelName == "" ? "渠道名称未填写" :
+      (params.channelId == "" ? "渠道ID未填写" : (params.productId == "" ? "产品ID未填写" : "OK"))));
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.getSetting({
+      success(res){
+        if (!res.authSetting['scope.writePhotosAlbum']){
+          wx.authorize({ scope: "scope.writePhotosAlbum" });
+        }
+      }
+    });
 
+    // var that = this;
+    // wx.request({
+    //   url: that.data.domain + '/weapp/provinceMenu', //获取省份信息
+    //   data: {
+    //     // paramsBody: e.detail.value
+    //   },
+    //   method: 'GET',
+    //   header: {
+    //     'content-type': 'application/json' // 默认值
+    //   },
+    //   success(res) {
+    //     that.setData({
+    //       provinceArray: res.data
+    //     }),
+    //   }
+    // })
 
   },
 
@@ -255,54 +285,148 @@ Page({
 
   },
 
-  // 表单提交
-  onSubmit: function(e){
+  // // 表单提交
+  // onSubmit: function(e){
+  //   var that = this;
+  //   console.info(e.detail.value);
+  //   that.setData({
+  //     gen_loading: true
+  //   }),
+
+  //   wx.request({
+  //     url: that.data.domain + '/weapp/qrcode', //仅为示例，并非真实的接口地址
+  //     data: {
+  //        paramsBody: e.detail.value
+  //     },
+  //     method: 'POST',
+  //     header: {
+  //       'content-type': 'application/json' // 默认值
+  //     },
+  //     success(res) {
+  //       that.setData({
+  //         gen_loading: false
+  //       }),
+  //       //console.log(res.data);
+  //       //var array = wx.base64ToArrayBuffer(res.data)
+  //       //var base64 = wx.arrayBufferToBase64(array)
+  //       //that.setData({ captchaImage: '../../test.jpg'});
+
+  //         that.setData({ captchaImage: 'data:image/png;base64,' + res.data});
+
+  //       if (res.statusCode == 200){
+  //         wx.showToast({
+  //           title: '生成成功',
+  //           icon: 'success',
+  //           duration: 2000
+  //         })
+  //       }
+  //       else{
+  //         wx.showToast({
+  //           title: res.data,
+  //           icon: 'none',
+  //           duration: 2000
+  //         })
+  //       }
+  //     }
+  //   })
+  // },
+
+  //表单提交
+  onSubmit: function (e) {
     var that = this;
-    console.info(e.detail.value);
     that.setData({
       gen_loading: true
-    }),
+    });
 
-    wx.request({
-      url: that.data.domain + '/weapp/qrcode', //仅为示例，并非真实的接口地址
-      data: {
-         paramsBody: e.detail.value
-      },
-      method: 'POST',
-      header: {
-        'content-type': 'application/json' // 默认值
-      },
-      success(res) {
+      // console.log(that.data.domain + '/weapp/qrcodeFile?province=' + e.detail.value.province
+      //   + '&city=' + e.detail.value.city
+      //   + '&district=' + e.detail.value.district
+      //   + '&type=' + e.detail.value.type
+      //   + '&channelName=' + e.detail.value.channelName
+      //   + '&channelId=' + e.detail.value.channelId
+      //   + '&productId=' + e.detail.value.productId);
+
+      var res = that.checkParams(e.detail.value);
+      if(res != "OK"){
         that.setData({
           gen_loading: false
-        }),
-        //console.log(res.data);
-        //var array = wx.base64ToArrayBuffer(res.data)
-        //var base64 = wx.arrayBufferToBase64(array)
-        //that.setData({ captchaImage: '../../test.jpg'});
-
-        that.setData({ captchaImage: 'data:img/jpg;base64,' + res.data});
-
-        if (res.statusCode == 200){
-          wx.showToast({
-            title: '生成成功',
-            icon: 'success',
-            duration: 2000
-          })
-        }
-        else{
-          wx.showToast({
-            title: res.data,
-            icon: 'none',
-            duration: 2000
-          })
-        }
+        });
+        wx.showToast({
+          title: res,
+          icon: 'none',
+          duration: 2000
+        })
       }
-    })
+      else{
+        wx.downloadFile({
+          url: that.data.domain + '/weapp/qrcodeFile?province=' + e.detail.value.province
+            + '&city=' + e.detail.value.city
+            + '&district=' + e.detail.value.district
+            + '&type=' + e.detail.value.type
+            + '&channelName=' + e.detail.value.channelName
+            + '&channelId=' + e.detail.value.channelId
+            + '&productId=' + e.detail.value.productId,
+
+          success: function (res) {
+            if (res.statusCode == 200) {
+              // console.log(res.tempFilePath);
+              wx.saveImageToPhotosAlbum({
+                filePath: res.tempFilePath,
+                success: function (data) {
+                  wx.showModal({
+                    title: '生成成功！',
+                    content: '已保存到相册，请查看',
+                    showCancel: false,
+                    confirmText: '我知道了'
+                  })
+                },
+                fail: function (error) {
+                  if (error.errMsg.toString() === "saveImageToPhotosAlbum:fail auth deny"){
+                    wx.showModal({
+                      title: '授权失败',
+                      content: '请先在「右上角」 - 「关于」 - 「右上角」 - 「设置」手动打开相册访问权限',
+                      showCancel: false,
+                      confirmText: '我知道了'
+                    })
+                  }
+                  else{
+                    wx.showModal({
+                      title: '保存失败，请将此页面反馈给管理员',
+                      content: error.errMsg.toString(),
+                      showCancel: false,
+                      confirmText: '我知道了'
+                    })
+                  }
+                },
+              });
+            }
+            else {
+              wx.showToast({
+                title: "发生错误",
+                icon: 'none',
+                duration: 2000
+              })
+            }
+            that.setData({
+              gen_loading: false
+            })
+          },
+          fail: function (error) {
+            wx.showToast({
+              title: error.data,
+              icon: 'none',
+              duration: 2000
+            });
+            that.setData({
+              gen_loading: false
+            })
+          }
+        });
+      }
   },
 
   bindTypeChange: function (e) {
-    console.log('类型改变，携带值为', this.data.typeArray[e.detail.value].key)
+    // console.log('类型改变，携带值为', this.data.typeArray[e.detail.value].key)
     this.setData({
       type_index: e.detail.value,
       type_id: this.data.typeArray[e.detail.value].key
@@ -310,7 +434,7 @@ Page({
   },
 
   provinceChange: function (e) {
-    console.log('省份改变，携带值为', this.data.provinceArray[e.detail.value].key)
+    // console.log('省份改变，携带值为', this.data.provinceArray[e.detail.value].key)
     this.setData({
       province_index: e.detail.value,
       province_id: this.data.provinceArray[e.detail.value].key
@@ -336,7 +460,7 @@ Page({
     wx.scanCode({
       scanType: "qrCode",
       success(res){
-        console.info("结果:" + res.result )
+        // console.info("结果:" + res.result )
         wx.request({
           url: that.data.domain + '/weapp/checkqrcode', //仅为示例，并非真实的接口地址
           data: {
@@ -347,7 +471,6 @@ Page({
             'content-type': 'text/plain' // 默认值
           },
           success(res) {
-
             that.setData({
               read_loading: false
             })
@@ -373,11 +496,9 @@ Page({
 
       },
       fail(res) {
-
         that.setData({
           read_loading: false
         })
-
         wx.showToast({
           title: "解析二维码失败",
           icon: 'none',

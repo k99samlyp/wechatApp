@@ -7,16 +7,18 @@
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view> -->
-  <view class='promotion'>
-    <text>欢迎使用</text>
+  <!-- <view class='promotion'>
+    <text></text>
   </view>
   <view class='promotion'>
-    <text>和教育互联网客户推广二位码生成器</text>
-  </view>
+    <text></text>
+  </view> -->
 
 <form class='form-area' bindsubmit='onSubmit'>
   <view>
-    <text class='form-key'>请填写二维码信息</text>
+    <view class='promotion'>
+        <text class='form-title'>请填写二维码信息</text>
+    </view>
     <view class='info-input-area'>
         <!-- <text class='form-key'>省(必填): </text><input name='province'></input> -->
         <picker bindchange='provinceChange' range-key='name' value='{{provinceArray[province_index].id}}' range="{{provinceArray}}">
@@ -57,16 +59,16 @@
           <view class="weui-cells__title">发展渠道名称(必填)：</view>
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
-               <input name='channelName' class="weui-input"></input>            
+               <input name='channelName' class="weui-input" confirm-type='next'></input>            
             </view>
           </view>
         </view>
 
         <view class="page-section">
-          <view class="weui-cells__title">发展渠道ID(必填)：</view>
+          <view class="weui-cells__title">发展渠道ID(必填，注：重庆为集团EC编码)：</view>
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
-               <input name='channelId' type='number' class="weui-input"></input>           
+               <input name='channelId' type='number' class="weui-input" confirm-type='next'></input>           
             </view>
           </view>
         </view>
@@ -75,7 +77,7 @@
           <view class="weui-cells__title">产品ID：(必填)：</view>
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
-               <input name='productId' placeholder='多个产品请以-隔开' placeholder-style='font-size:14px' class="weui-input"></input>          
+               <input name='productId' placeholder='多个产品请以-隔开' placeholder-style='font-size:14px' class="weui-input" confirm-type='next'></input>          
             </view>
           </view>
         </view>
@@ -83,10 +85,12 @@
     </view>
   </view>
     <view class="usermotto">
-    <button form-type="submit" type="primary" loading="{{gen_loading}}">开始生成</button>
-    <button form-type="reset" type="warn" bindtap='resetForm'>重置</button>
-    <button bindtap='scanQrCode' loading="{{read_loading}}">二维码读取</button>
+    <button form-type="submit" type="primary" loading="{{gen_loading}}">生成并保存</button>
+    <button form-type="reset" type="warn" bindtap='resetForm'>重新填写</button>
+    <button bindtap='scanQrCode' loading="{{read_loading}}">二维码解析</button>
   </view>
 </form>
-    <image src='{{captchaImage}}'/>
+    <!-- <image src='{{captchaImage}}'/> -->
+    <!-- <button bindtap='saveImg'>下载</button> -->
+
 </view>
